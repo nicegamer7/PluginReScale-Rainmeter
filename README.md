@@ -1,0 +1,2 @@
+# PluginGetScale-Rainmeter
+oh no
