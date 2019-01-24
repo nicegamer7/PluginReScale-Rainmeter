@@ -1,5 +1,5 @@
 ﻿/*
-  Copyright (C) 2014 Birunthan Mohanathas
+  Copyright (C) 2019 Kermina Awad
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU General Public License
@@ -22,63 +22,6 @@ using System.Runtime.InteropServices;
 using System.Drawing;
 using Rainmeter;
 
-// Overview: This example demonstrates the basic concept of Rainmeter C# plugins.
-
-// Sample skin:
-/*
-    [Rainmeter]
-    Update=1000
-    BackgroundMode=2
-    SolidColor=000000
-
-    [mString]
-    Measure=Plugin
-    Plugin=SystemVersion.dll
-    Type=String
-
-    [mMajor]
-    Measure=Plugin
-    Plugin=SystemVersion.dll
-    Type=Major
-
-    [mMinor]
-    Measure=Plugin
-    Plugin=SystemVersion.dll
-    Type=Minor
-
-    [mNumber]
-    Measure=Plugin
-    Plugin=SystemVersion.dll
-    Type=Number
-
-    [Text1]
-    Meter=STRING
-    MeasureName=mString
-    MeasureName2=mMajor
-    MeasureName3=mMinor
-    MeasureName4=mNumber
-    X=5
-    Y=5
-    W=300
-    H=70
-    FontColor=FFFFFF
-    Text="String: %1#CRLF#Major: %2#CRLF#Minor: %3#CRLF#Number: %4#CRLF#"
-
-    [Text2]
-    Meter=STRING
-    MeasureName=mString
-    MeasureName2=mMajor
-    MeasureName3=mMinor
-    MeasureName4=mNumber
-    NumOfDecimals=1
-    X=5
-    Y=5R
-    W=300
-    H=70
-    FontColor=FFFFFF
-    Text="String: %1#CRLF#Major: %2#CRLF#Minor: %3#CRLF#Number: %4#CRLF#"
-*/
-
 namespace PluginGetScale
 {
     internal class Measure
@@ -93,12 +36,22 @@ namespace PluginGetScale
             // http://pinvoke.net/default.aspx/gdi32/GetDeviceCaps.html
         }
 
+        public enum PROCESS_DPI_AWARENESS
+        {
+            PROCESS_DPI_UNAWARE,
+            PROCESS_SYSTEM_DPI_AWARE,
+            PROCESS_PER_MONITOR_DPI_AWARE
+        }
+        [DllImport("SHCore.dll", SetLastError=true)]
+        private static extern bool SetProcessDpiAwareness(PROCESS_DPI_AWARENESS value);
+
         internal Measure()
         {
         }
 
         internal void Reload(Rainmeter.API api, ref double maxValue)
         {
+            Measure.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE);
         }
 
         internal double Update()
@@ -109,6 +62,8 @@ namespace PluginGetScale
             int PhysicalScreenHeight = GetDeviceCaps(desktop, (int)DeviceCap.DESKTOPVERTRES);
 
             double ScreenScalingFactor = (double)PhysicalScreenHeight / (double)LogicalScreenHeight;
+
+            Measure.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PROCESS_SYSTEM_DPI_AWARE);
 
             return ScreenScalingFactor;
 

@@ -1,8 +1,0 @@
-C:\Users\Kermina\source\repos\C#\PluginEmpty\x32\Release\GetScale.dll
-C:\Users\Kermina\source\repos\C#\PluginEmpty\obj\x86\Release\PluginGetScale.csprojAssemblyReference.cache
-C:\Users\Kermina\source\repos\C#\PluginEmpty\obj\x86\Release\PluginGetScale.csproj.CoreCompileInputs.cache
-C:\Users\Kermina\source\repos\C#\PluginEmpty\obj\x86\Release\GetScale.dll
-C:\Users\Kermina\source\repos\C#\PluginGetScale\x32\Release\GetScale.dll
-C:\Users\Kermina\source\repos\C#\PluginGetScale\obj\x86\Release\PluginGetScale.csprojAssemblyReference.cache
-C:\Users\Kermina\source\repos\C#\PluginGetScale\obj\x86\Release\PluginGetScale.csproj.CoreCompileInputs.cache
-C:\Users\Kermina\source\repos\C#\PluginGetScale\obj\x86\Release\GetScale.dll
