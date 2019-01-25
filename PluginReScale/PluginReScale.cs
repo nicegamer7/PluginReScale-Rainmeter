@@ -26,6 +26,27 @@ namespace PluginGetScale
 {
     internal class Measure
     {
+/*      public enum PROCESS_DPI_AWARENESS
+        {
+            PROCESS_DPI_UNAWARE,
+            PROCESS_SYSTEM_DPI_AWARE,
+            PROCESS_PER_MONITOR_DPI_AWARE
+        }
+
+        [DllImport("SHCore.dll", SetLastError = true)]
+        static extern bool SetProcessDpiAwareness(PROCESS_DPI_AWARENESS value);*/
+
+        [DllImport("User32.dll", SetLastError = true)]
+        static extern bool SetProcessDPIAware();
+
+        [DllImport("gdi32.dll")]
+        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetDC(IntPtr hWnd);
+
+        const int logpixY = 90;
+
         internal Measure()
         {
         }
@@ -34,9 +55,14 @@ namespace PluginGetScale
         {
         }
 
-        internal double Update()
+        internal float Update()
         {
-            return Graphics.FromHwnd(IntPtr.Zero).DpiX / 96;
+            //SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PROCESS_PER_MONITOR_DPI_AWARE);
+            SetProcessDPIAware();
+
+            return (float) GetDeviceCaps(GetDC(IntPtr.Zero), logpixY) / 96;
+
+            // https://www.codeproject.com/Answers/558212/howplustoplusgetplustheplussystemplusdpiplusplusse#answer3
         }
     }
 
