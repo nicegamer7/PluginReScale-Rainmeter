@@ -26,48 +26,17 @@ namespace PluginGetScale
 {
     internal class Measure
     {
-        [DllImport("gdi32.dll")]
-        static extern int GetDeviceCaps(IntPtr hdc, int nIndex);
-        public enum DeviceCap
-        {
-            VERTRES = 10,
-            DESKTOPVERTRES = 117,
-
-            // http://pinvoke.net/default.aspx/gdi32/GetDeviceCaps.html
-        }
-
-        public enum PROCESS_DPI_AWARENESS
-        {
-            PROCESS_DPI_UNAWARE,
-            PROCESS_SYSTEM_DPI_AWARE,
-            PROCESS_PER_MONITOR_DPI_AWARE
-        }
-        [DllImport("SHCore.dll", SetLastError=true)]
-        private static extern bool SetProcessDpiAwareness(PROCESS_DPI_AWARENESS value);
-
         internal Measure()
         {
         }
 
         internal void Reload(Rainmeter.API api, ref double maxValue)
         {
-            Measure.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PROCESS_DPI_UNAWARE);
         }
 
         internal double Update()
         {
-            Graphics g = Graphics.FromHwnd(IntPtr.Zero);
-            IntPtr desktop = g.GetHdc();
-            int LogicalScreenHeight = GetDeviceCaps(desktop, (int)DeviceCap.VERTRES);
-            int PhysicalScreenHeight = GetDeviceCaps(desktop, (int)DeviceCap.DESKTOPVERTRES);
-
-            double ScreenScalingFactor = (double)PhysicalScreenHeight / (double)LogicalScreenHeight;
-
-            Measure.SetProcessDpiAwareness(PROCESS_DPI_AWARENESS.PROCESS_SYSTEM_DPI_AWARE);
-
-            return ScreenScalingFactor;
-
-            // https://stackoverflow.com/a/21450169
+            return Graphics.FromHwnd(IntPtr.Zero).DpiX / 96;
         }
     }
 

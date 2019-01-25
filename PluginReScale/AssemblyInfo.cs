@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-[assembly: AssemblyCopyright("© 2019 - KERMINA AWAD")]
+[assembly: AssemblyCopyright("© 2019 - Kermina Awad")]
 [assembly: AssemblyVersion("1.0.0.1")]
 
 // Do not change the entries below!
