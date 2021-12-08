@@ -1,7 +1,7 @@
 # PluginGetScale-Rainmeter
-whipped up my first Rainmeter plugin, so it will definitely have issues, like for sure.
+A Rainmeter plugin that provides the screen's current scaling factor.
 
-returns the scaling factor, e.g. 138% will return 1.38 (cool eh?). it also disables Windows' scaling.
+Useful for making HiDPI compatible themes. It also disables Windows' built-in scaling to prevent blurriness.
 
-side note (or bottom as were): I have no clue if anyone other than I, can build this. that will be all.
-second side note: mad props to some dude from the internet for the logic (link in source code)
+# Example
+If the screen's scaling factor is set to `138%`, the plugin will return `1.38`.
